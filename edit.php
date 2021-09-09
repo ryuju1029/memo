@@ -1,48 +1,30 @@
 <?php
-// URLの?以降で渡されるIDをキャッチ
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+//データベース名、ユーザー名、パスワード
+$dsn = 'mysql:dbname=pages;host=localhost;charset=utf8';
+$user = 'root';
+$password = 'root';
+//MSQLのデータベース接続
+$pdo = new PDO($dsn, $user, $password);
+//URLの値を受けとり受け取った情報を呼び出す
 $id = $_GET['id'];
-// PDOのインスタンスを取得
-$pdo = db_connect();
-try {
-    // SQL文の準備
-    $sql = "SELECT * FROM posts WHERE id = :id";
-    // プリペアドステートメントの作成
-    $stmt = $pdo->prepare($sql);
-    // idのバインド
-    $stmt->bindParam(':id', $id);
-    $stmt->execute();
-} catch (PDOException $e) {
-    // エラーメッセージの出力
-    echo 'Error: ' . $e->getMessage();
-    // 終了
-    die();
-}
-// 結果が1行取得できたら
-if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-    $id = $row['id'];
-    $title = $row['title'];
-    $content = $row['content'];
-} else {
-    // 対象のidでレコードがない => 不正な画面遷移
-    echo "対象のデータがありません。";
-}
+$sql = "SELECT * FROM pages WHERE id IN (".$id.")";
+$result_rows = $pdo->query($sql);
+
 ?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>記事編集</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
-    <body>
-        <h1>記事編集</h1>
-        <form method="POST" action="edit_done_post.php">
-            <input type="hidden" name="id" value="<?php echo $id; ?>" >
-            title:<br>
-            <input type="text" name="title" id="title" style="width:200px;height:50px;" value=<?php echo $title; ?>>
-            <br>
-            content:<br>
-            <input type="text" name="content" id="content" style="width:200px;height:100px;" value=<?php echo $content; ?>><br>
-            <input type="submit" value="submit" id="edit" name="edit">
-        </form>
-    </body>
-</html>
+<form action="update.php" method="post">
+    <?php
+    foreach($result_rows as $row){
+    ?>
+    <input type="hidden" name="id" value="<?php if (!empty($row['id'])) echo(htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8'));?>">
+    <p>title</p>
+    <input type="text" name="title" value="<?php if (!empty($row['title'])) echo(htmlspecialchars($row['title'], ENT_QUOTES, 'UTF-8'));?>">
+    <p>本文</p>
+    <input type="text" name="content" value="<?php if (!empty($row['content'])) echo(htmlspecialchars($row['content'], ENT_QUOTES, 'UTF-8'));?>"><br>
+    <?php
+    }
+    ?>
+    <input type="submit" value="更新">
+</form>    

@@ -6,3 +6,4 @@
 　<input name="content" cols="30" rows="10" placeholder="本文"><br>　
 　<button type="submit" name="button">送信</button></td>
 </form>
+
