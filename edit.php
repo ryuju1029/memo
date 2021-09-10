@@ -1,18 +1,11 @@
 <?php
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-
-//データベース名、ユーザー名、パスワード
-$dsn = 'mysql:dbname=pages;host=localhost;charset=utf8';
-$user = 'root';
-$password = 'root';
-//MSQLのデータベース接続
-$pdo = new PDO($dsn, $user, $password);
+include('global_menu.php');
 //URLの値を受けとり受け取った情報を呼び出す
 $id = $_GET['id'];
 $sql = "SELECT * FROM pages WHERE id IN (".$id.")";
 $result_rows = $pdo->query($sql);
-
 ?>
 
 <form action="update.php" method="post">
