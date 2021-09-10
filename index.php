@@ -1,11 +1,19 @@
 <?php
 include('global_menu.php');
-//URLの値を受けとり受け取った情報を呼び出す 
-$result_list = $pdo->query('SELECT * FROM pages');
+//URLの値を受けとり受け取った情報を呼び出す
+ if (isset($_POST['old'])){ 
+  $result_list = $pdo->query('SELECT * FROM pages ');
+ }else{
+  $result_list = $pdo->query('SELECT * FROM pages ORDER BY created_at DESC');
+ }
 ?>
 
 <h1>メモ一覧</h1>
 <a href="./create.php">メモを追加</a><br>
+　<form action="index.php" method="post">
+    <button type="submit" name="new">新しい順</button>
+    <button type="submit" name="old">古い順</button>
+　</form>
 <table>
   <tr>
     <th>タイトル</th>
