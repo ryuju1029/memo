@@ -16,11 +16,11 @@ include('global_menu.php');
 </form>
 <h1>メモ一覧</h1>
 <a href="./create.php">メモを追加</a><br>
-　<form action="index.php" method="post">
-    <button type="submit" name="new">新しい順</button>
-    <button type="submit" name="old">古い順</button>
+　<form action="index.php" method="post" style="text-align:right">
+    <button type="submit" name="new" style="text-align: right">新しい順</button>
+    <button type="submit" name="old" style="text-align: right">古い順</button>
 　</form>
-<table>
+<table border="1" cellspacing="0" width="100%">
   <tr>
     <th>タイトル</th>
     <th>内容</th>
@@ -33,11 +33,11 @@ include('global_menu.php');
 foreach($result_list as $row){
 ?>
   <tr>
-    <td><?php echo $row['title']; ?></td>
-    <td><?php echo $row['content']; ?></td>
-    <td><?php echo $row['created_at']; ?></td>
-    <td><a href="edit.php?id=<?php echo $row['id']; ?>">編集</a></td>
-    <td><a href="delete.php?id=<?php echo $row['id']; ?>">削除</a></td>
+    <td align="center"><?php echo $row['title']; ?></td>
+    <td align="center"><?php echo $row['content']; ?></td>
+    <td align="center"><?php echo $row['created_at']; ?></td>
+    <td align="center"><a href="edit.php?id=<?php echo $row['id']; ?>">編集</a></td>
+    <td align="center"><a href="delete.php?id=<?php echo $row['id']; ?>">削除</a></td>
   </tr>
 
 <?php
