@@ -14,6 +14,7 @@ $sql = "SELECT * FROM pages WHERE id IN (".$id.")";
 $result_rows = $pdo->query($sql);
 
 ?>
+
 <form action="update.php" method="post">
     <?php
     foreach($result_rows as $row){

@@ -1,5 +1,5 @@
 <h1>メモ登録</h1>
-<form action="index.php" method="post">
+<form action="store.php" method="post">
   <p>title</p>
 　<input name="title" cols="30" rows="10" placeholder="タイトル"><br>
   <p>本文</p>
