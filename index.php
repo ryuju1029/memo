@@ -15,20 +15,6 @@ $pdo = new PDO($dsn, $user, $password);
 //URLの値を受けとり受け取った情報を呼び出す 
 $result_list = $pdo->query('SELECT * FROM pages');
 
-if ($_POST['title'] && $_POST['title'] !== null ){
-//投稿した値を受けとり変数に格納
-$title = $_POST['title'];
-$content = $_POST['content'];
-//INSERT文を変数に格納
-$sql = "INSERT INTO pages (title, content) VALUES (:title, :content)";
-//値はからのままSQLの実行の準備
-$stmt = $pdo->prepare($sql);
-//配列に格納
-$params = array(':title' => $title,':content' => $content,);
-//値が入った変数をexecuteにセットしてSQL実行
-$stmt->execute($params);
-}
-
 ?>
 
 <table>
