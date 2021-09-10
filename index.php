@@ -1,22 +1,11 @@
-<h1>メモ一覧</h1>
-<a href="./create.php">メモを追加</a><br>
-
-<!-- データベースへ登録   -->
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
-//データベース名、ユーザー名、パスワード
-$dsn = 'mysql:dbname=pages;host=localhost;charset=utf8';
-$user = 'root';
-$password = 'root';
-//MSQLのデータベース接続
-$pdo = new PDO($dsn, $user, $password);
+include('global_menu.php');
 //URLの値を受けとり受け取った情報を呼び出す 
 $result_list = $pdo->query('SELECT * FROM pages');
-
 ?>
 
+<h1>メモ一覧</h1>
+<a href="./create.php">メモを追加</a><br>
 <table>
   <tr>
     <th>タイトル</th>
