@@ -1,11 +1,16 @@
 <?php
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-include('global_menu.php');
+require_once('initPdo.php');
 //URLの値を受けとり受け取った情報を呼び出す
-$id = $_GET['id'];
-$sql = "SELECT * FROM pages WHERE id IN (".$id.")";
-$result_rows = $pdo->query($sql);
+$id = filter_input(INPUT_GET, "id");
+$sql = "SELECT * FROM pages WHERE id IN (:id)";
+$pdo = initPdo();
+$result_rows = $pdo->prepare($sql);
+//値が入った変数をexecuteにセットしてSQL実行
+$result_rows->bindValue(':id', $id);
+$result_rows->execute();
+
 ?>
 
 
