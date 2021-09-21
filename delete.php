@@ -10,9 +10,9 @@ $pdo = initPdo();
 //値はからのままSQLの実行の準備
 $stmt = $pdo->prepare($sql);
 //削除するレコードのIDを配列に格納する
-$params = array(':id'=> filter_input(INPUT_GET, "id"));
+$stmt->bindValue(':id',$id);
 //削除するレコードのIDが入った変数をexecuteにセットしてSQLに実行
-$stmt->execute($params);
+$stmt->execute();
 //処理が終わったらトップページに遷移
 header('Location: index.php');
 ?>
