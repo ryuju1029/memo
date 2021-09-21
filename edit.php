@@ -10,15 +10,13 @@ $stmt = $pdo->prepare($sql);
 //値が入った変数をexecuteにセットしてSQL実行
 $stmt->bindValue(':id', $id);
 $stmt->execute();
-
+$stmt = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 
 <h1 style="text-align:center">メモ編集</h1>
 <form action="update.php" method="post"> 
-<?php
- foreach($stmt as $row){
-?>
+<?php foreach($stmt as $row) : ?>
 <input type="hidden" name="id" value="<?php if (!empty($row['id'])) echo(htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8'));?>">
   <table align="center">
     <tr>
@@ -37,7 +35,5 @@ $stmt->execute();
       <td><input type="submit" value="更新"></td>
     </tr>  
   </table>
-<?php
- }
-?> 
+<?php endforeach; ?> 
 </form>
