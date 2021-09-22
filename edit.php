@@ -10,30 +10,34 @@ $stmt = $pdo->prepare($sql);
 //値が入った変数をexecuteにセットしてSQL実行
 $stmt->bindValue(':id', $id);
 $stmt->execute();
-$stmt = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$page = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
 
 <h1 style="text-align:center">メモ編集</h1>
-<form action="update.php" method="post"> 
-<?php foreach($stmt as $row) : ?>
-<input type="hidden" name="id" value="<?php if (!empty($row['id'])) echo(htmlspecialchars($row['id'], ENT_QUOTES, 'UTF-8'));?>">
+<form action="update.php" method="post">
+
+  <input type="hidden" name="id" value="<?php if (!empty($page['id'])) echo (htmlspecialchars($page['id'], ENT_QUOTES, 'UTF-8')); ?>">
   <table align="center">
     <tr>
-      <td><p>title</p></td>
+      <td>
+        <p>title</p>
+      </td>
     </tr>
     <tr>
-      <td><input type="text" name="title" value="<?php if (!empty($row['title'])) echo(htmlspecialchars($row['title'], ENT_QUOTES, 'UTF-8'));?>"></td>
+      <td><input type="text" name="title" value="<?php if (!empty($page['title'])) echo (htmlspecialchars($page['title'], ENT_QUOTES, 'UTF-8')); ?>"></td>
     </tr>
     <tr>
-      <td><p>本文</p></td>
+      <td>
+        <p>本文</p>
+      </td>
     </tr>
     <tr>
-      <td><input type="text" name="content" value="<?php if (!empty($row['content'])) echo(htmlspecialchars($row['content'], ENT_QUOTES, 'UTF-8'));?>"></td>
+      <td><input type="text" name="content" value="<?php if (!empty($page['content'])) echo (htmlspecialchars($page['content'], ENT_QUOTES, 'UTF-8')); ?>"></td>
     </tr>
     <tr>
       <td><input type="submit" value="更新"></td>
-    </tr>  
+    </tr>
   </table>
-<?php endforeach; ?> 
+
 </form>
